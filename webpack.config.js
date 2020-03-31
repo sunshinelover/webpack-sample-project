@@ -1,7 +1,16 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack'); 
+const path = require('path')
 
 module.exports = {
+    devServer: {
+        contentBase: path.resolve(__dirname, 'build'),
+        clientLogLevel: 'warning',
+        historyApiFallback: true,
+        hot: true, // 热加载
+        inline: true,  // 实时刷新
+    },
     module: {
         rules: [
             {
@@ -34,7 +43,8 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()//热加载插件
     ]
 };
 
